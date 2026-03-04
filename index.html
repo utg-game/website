@@ -99,6 +99,22 @@ h1 {
 .toggle-btn:hover {
     background-color: rgba(0,0,0,0.1);
 }
+.journal-images {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 15px;
+}
+.journal-images img {
+    width: 120px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.3s;
+}
+.journal-images img:hover {
+    transform: rotate(0deg) scale(1.05);
+}
 </style>
 </head>
 <body>
@@ -115,6 +131,12 @@ h1 {
     <div class="window-content" id="windowContent">
         <p>Welcome.</p>
     </div>
+</div>
+
+<div class="journal-images">
+  <img src="https://tr.rbxcdn.com/180DAY-706aaab8bd15d268b10572632de1609e/768/432/Image/Webp/noFilter" alt="Journal 1" style="transform: rotate(-5deg);">
+  <img src="https://tr.rbxcdn.com/180DAY-2764c31efb257bbba8e277d0886d2536/768/432/Image/Webp/noFilter" alt="Journal 2" style="transform: rotate(3deg);">
+  <img src="https://tr.rbxcdn.com/180DAY-a2e5cab63f5c306b3218d72d8f882704/768/432/Image/Webp/noFilter" alt="Journal 3" style="transform: rotate(-2deg);">
 </div>
 
 <script>
