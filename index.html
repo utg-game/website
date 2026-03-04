@@ -193,14 +193,28 @@ function showWindow(type) {
 
 function toggleColors() {
     const img = document.getElementById('teamColors');
-    img.style.display = (img.style.display === 'none' || img.style.display === '') ? 'block' : 'none';
+    // Toggle visibility
+    const isHidden = img.style.display === 'none' || img.style.display === '';
+    img.style.display = isHidden ? 'block' : 'none';
 
-    // Recalculate window size
+    // Recalculate window size based on actual content
     const winDiv = document.getElementById('contentWindow');
-    setTimeout(() => {
-        winDiv.style.width = winDiv.scrollWidth + 'px';
-        winDiv.style.height = winDiv.scrollHeight + 'px';
-    }, 50);
+    const winContent = document.getElementById('windowContent');
+
+    // Create a hidden clone to measure correct size
+    const clone = winDiv.cloneNode(true);
+    clone.style.visibility = 'hidden';
+    clone.style.position = 'absolute';
+    clone.style.width = 'auto';
+    clone.style.height = 'auto';
+    clone.querySelector('#windowContent').innerHTML = winContent.innerHTML;
+    document.body.appendChild(clone);
+
+    // Animate window to new size
+    winDiv.style.width = clone.offsetWidth + 'px';
+    winDiv.style.height = clone.offsetHeight + 'px';
+
+    document.body.removeChild(clone);
 }
 </script>
 
