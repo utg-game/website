@@ -99,6 +99,8 @@ h1 {
 .toggle-btn:hover {
     background-color: rgba(0,0,0,0.1);
 }
+
+/* Journal images at bottom of game window */
 .journal-images {
     display: flex;
     justify-content: center;
@@ -123,8 +125,8 @@ h1 {
 
 <div class="buttons">
     <button onclick="showWindow('discord')"><i class="fab fa-discord"></i>Discord</button>
-    <button onclick="showWindow('game')"><i class="fas fa-gamepad"></i>Roblox</button>
-    <button onclick="showWindow('rules')"><i class="fas fa-book"></i>Other</button>
+    <button onclick="showWindow('game')"><i class="fas fa-gamepad"></i>Game</button>
+    <button onclick="showWindow('rules')"><i class="fas fa-book"></i>Rules & Info</button>
 </div>
 
 <div class="window" id="contentWindow">
@@ -133,15 +135,10 @@ h1 {
     </div>
 </div>
 
-<div class="journal-images">
-  <img src="https://tr.rbxcdn.com/180DAY-706aaab8bd15d268b10572632de1609e/768/432/Image/Webp/noFilter" alt="Journal 1" style="transform: rotate(-5deg);">
-  <img src="https://tr.rbxcdn.com/180DAY-2764c31efb257bbba8e277d0886d2536/768/432/Image/Webp/noFilter" alt="Journal 2" style="transform: rotate(3deg);">
-  <img src="https://tr.rbxcdn.com/180DAY-a2e5cab63f5c306b3218d72d8f882704/768/432/Image/Webp/noFilter" alt="Journal 3" style="transform: rotate(-2deg);">
-</div>
-
 <script>
 const contentData = {
     discord: `
+        <h2>DISCORD</h2>
         <blockquote>
             <p><a href="https://discord.com/invite/Fq7cKHscHA" target="_blank">https://discord.com/invite/Fq7cKHscHA</a></p>
             <p><strong>Owner:</strong> @laszi_</p>
@@ -153,6 +150,7 @@ const contentData = {
         </ul>
     `,
     game: `
+        <h2>GAME</h2>
         <blockquote>
             <p><a href="https://www.roblox.com/games/120236804424591/Untitled-Tree-Game" target="_blank">https://www.roblox.com/games/120236804424591/Untitled-Tree-Game</a></p>
             <p><strong>Owner:</strong> <a href="https://www.roblox.com/users/9751195245/profile" target="_blank">laszi_top</a></p>
@@ -190,6 +188,14 @@ const contentData = {
             </ul>
         </ul>
         <img id="teamColors" src="https://cdn.discordapp.com/attachments/1429133321773777022/1476630148228055090/teamcolors.png?ex=69a912bd&is=69a7c13d&hm=a5d71bdbc37894fa13db8dc71f591864d5411e93106b882916b076960b78f78d&" alt="Team Colors">
+        
+        <!-- Journal images at the bottom -->
+        <div class="journal-images">
+            <img src="https://tr.rbxcdn.com/180DAY-706aaab8bd15d268b10572632de1609e/768/432/Image/Webp/noFilter" alt="Journal 1" style="transform: rotate(-5deg);">
+            <img src="https://tr.rbxcdn.com/180DAY-2764c31efb257bbba8e277d0886d2536/768/432/Image/Webp/noFilter" alt="Journal 2" style="transform: rotate(3deg);">
+            <img src="https://tr.rbxcdn.com/180DAY-a2e5cab63f5c306b3218d72d8f882704/768/432/Image/Webp/noFilter" alt="Journal 3" style="transform: rotate(-2deg);">
+        </div>
+
         <h3>Rare Trees</h3>
         <ul>
             <li>Rare trees have a 1/1000 chance to spawn</li>
@@ -197,6 +203,7 @@ const contentData = {
         </ul>
     `,
     rules: `
+        <h2>Other</h2>
         <p>Awesome website right?</p>
     `
 };
