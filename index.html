@@ -94,27 +94,29 @@ h1 {
     background-color: rgba(0,0,0,0.1);
 }
 
-/* Journal images stacked vertically */
 .journal-images {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 100px; /* more space from the text above */
-    gap: 80px; /* more space between images */
+    margin-top: 80px;
+    gap: 90px;
 }
 .journal-images img {
-    width: 700px; /* bigger size */
+    width: 400px;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     transition: transform 0.3s;
     display: block;
-}
-.journal-images img:hover {
-    transform: rotate(0deg) scale(1.05);
+    transform-origin: center;
 }
 
-/* Modal overlay for team colors */
+.rotate-neg5 { transform: rotate(-5deg); }
+.rotate-5 { transform: rotate(5deg); }
+
+.journal-images img:hover {
+    transform: rotate(0deg) scale(1.5);
+}
 .modal {
     position: fixed;
     top: 0;
@@ -161,7 +163,7 @@ h1 {
 <h1>Untitled Tree Game</h1>
 
 <div class="buttons">
-    <button onclick="showWindow('discord')"><i class="fab fa-discord"></i>Discord</button>
+    <button onclick="showDiscordWindow()"><i class="fab fa-discord"></i>Discord</button>
     <button onclick="showWindow('game')"><i class="fas fa-gamepad"></i>Roblox</button>
     <button onclick="showWindow('rules')"><i class="fas fa-book"></i>Other</button>
 </div>
@@ -182,17 +184,6 @@ h1 {
 
 <script>
 const contentData = {
-    discord: `
-        <blockquote>
-            <p><a href="https://discord.com/invite/Fq7cKHscHA" target="_blank">https://discord.com/invite/Fq7cKHscHA</a></p>
-            <p><strong>Owner:</strong> @laszi_</p>
-        </blockquote>
-        <h3>Rules</h3>
-        <ul>
-            <li>No NSFW</li>
-            <li>Don't curse too much</li>
-        </ul>
-    `,
     game: `
         <blockquote>
             <p><a href="https://www.roblox.com/games/120236804424591/Untitled-Tree-Game" target="_blank">https://www.roblox.com/games/120236804424591/Untitled-Tree-Game</a></p>
@@ -236,9 +227,9 @@ const contentData = {
             <li>Rare trees give rare block, which can be painted; rare blocks are infinite (No block given when mined)</li>
         </ul>
         <div class="journal-images">
-            <img src="https://tr.rbxcdn.com/180DAY-706aaab8bd15d268b10572632de1609e/768/432/Image/Webp/noFilter" alt="Journal 1" style="transform: rotate(-5deg);">
-            <img src="https://tr.rbxcdn.com/180DAY-2764c31efb257bbba8e277d0886d2536/768/432/Image/Webp/noFilter" alt="Journal 2" style="transform: rotate(3deg);">
-            <img src="https://tr.rbxcdn.com/180DAY-a2e5cab63f5c306b3218d72d8f882704/768/432/Image/Webp/noFilter" alt="Journal 3" style="transform: rotate(-2deg);">
+            <img src="https://tr.rbxcdn.com/180DAY-706aaab8bd15d268b10572632de1609e/768/432/Image/Webp/noFilter" alt="Journal 1" class="rotate-neg5">
+            <img src="https://tr.rbxcdn.com/180DAY-2764c31efb257bbba8e277d0886d2536/768/432/Image/Webp/noFilter" alt="Journal 2" class="rotate-5">
+            <img src="https://tr.rbxcdn.com/180DAY-a2e5cab63f5c306b3218d72d8f882704/768/432/Image/Webp/noFilter" alt="Journal 3" class="rotate-neg5">
         </div>
     `,
     rules: `<p>Awesome website right?</p>`
@@ -247,13 +238,18 @@ const contentData = {
 function showWindow(type) {
     const winDiv = document.getElementById('contentWindow');
     const winContent = document.getElementById('windowContent');
+
+    // Discord handled separately
+    if(type === 'discord') {
+        showDiscordWindow();
+        return;
+    }
+
     const newContent = contentData[type] || '<p>Content not found.</p>';
 
-    // Step 1: measure current size before changing content
     if (!winDiv.style.width) winDiv.style.width = winDiv.offsetWidth + 'px';
     if (!winDiv.style.height) winDiv.style.height = winDiv.offsetHeight + 'px';
 
-    // Step 2: put new content temporarily into a clone to measure new size
     const clone = winDiv.cloneNode(true);
     clone.style.visibility = 'hidden';
     clone.style.position = 'absolute';
@@ -266,17 +262,14 @@ function showWindow(type) {
     const newHeight = clone.offsetHeight + 'px';
     document.body.removeChild(clone);
 
-    // Step 3: animate to new size
     setTimeout(() => {
         winDiv.style.width = newWidth;
         winDiv.style.height = newHeight;
     }, 20);
 
-    // Step 4: set the new content AFTER a tiny delay so animation can trigger
     setTimeout(() => {
         winContent.innerHTML = newContent;
 
-        // Step 5: handle images inside the new content to resize window if needed
         const imgs = winContent.querySelectorAll('img');
         let loadedCount = 0;
         if (imgs.length === 0) return;
@@ -294,7 +287,6 @@ function showWindow(type) {
         });
 
         function finalizeResize() {
-            // re-measure with images loaded
             const clone2 = winDiv.cloneNode(true);
             clone2.style.visibility = 'hidden';
             clone2.style.position = 'absolute';
@@ -317,6 +309,62 @@ function openModal() {
 }
 function closeModal() {
     document.getElementById('colorsModal').style.display = 'none';
+}
+
+function showDiscordWindow() {
+    const winDiv = document.getElementById('contentWindow');
+    const winContent = document.getElementById('windowContent');
+
+    const newContent = `
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start;">
+            <!-- Text Column -->
+            <div style="flex: 1; min-width: 200px;">
+                <blockquote>
+                    <p><a href="https://discord.com/invite/Fq7cKHscHA" target="_blank">https://discord.com/invite/Fq7cKHscHA</a></p>
+                    <p><strong>Owner:</strong> laszi_ (vegh#1821)</p>
+                </blockquote>
+                <h3>Rules</h3>
+                <ul>
+                    <li>No NSFW</li>
+                    <li>Don't curse too much</li>
+                </ul>
+            </div>
+
+            <!-- Discord Widget -->
+            <div style="flex-shrink: 0;">
+                <iframe src="https://discord.com/widget?id=1476291858140233738&theme=dark"
+                        width="250" height="300"
+                        allowtransparency="true"
+                        frameborder="0"
+                        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+                </iframe>
+            </div>
+        </div>
+    `;
+
+    if (!winDiv.style.width) winDiv.style.width = winDiv.offsetWidth + 'px';
+    if (!winDiv.style.height) winDiv.style.height = winDiv.offsetHeight + 'px';
+
+    const clone = winDiv.cloneNode(true);
+    clone.style.visibility = 'hidden';
+    clone.style.position = 'absolute';
+    clone.style.width = 'auto';
+    clone.style.height = 'auto';
+    clone.querySelector('#windowContent').innerHTML = newContent;
+    document.body.appendChild(clone);
+
+    const newWidth = clone.offsetWidth + 'px';
+    const newHeight = clone.offsetHeight + 'px';
+    document.body.removeChild(clone);
+
+    setTimeout(() => {
+        winDiv.style.width = newWidth;
+        winDiv.style.height = newHeight;
+    }, 20);
+
+    setTimeout(() => {
+        winContent.innerHTML = newContent;
+    }, 50);
 }
 </script>
 
