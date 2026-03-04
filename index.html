@@ -1,59 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untitled Tree Game</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #e0f7fa;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            color: #00695c;
-        }
-        button {
-            padding: 15px 25px;
-            margin: 10px;
-            font-size: 16px;
-            border: none;
-            background-color: #00897b;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #004d40;
-        }
-        #rules {
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 15px;
-            max-width: 600px;
-            margin: 20px auto;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untitled Tree Game</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    min-height: 100vh;
+}
+h1 {
+    margin-top: 40px;
+    font-size: 3em;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
+.buttons {
+    margin: 20px;
+}
+.buttons button {
+    padding: 12px 20px;
+    margin: 0 8px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.6);
+    color: #fff;
+    transition: background 0.3s;
+}
+.buttons button:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+.window {
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    border-radius: 12px;
+    padding: 30px;
+    margin-top: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    display: inline-block;
+    overflow: hidden;
+    width: auto;
+    height: auto;
+    max-width: 90%;
+    transition: width 0.5s ease, height 0.5s ease;
+}
+.window-content a {
+    color: #00695c;
+    text-decoration: none;
+    font-weight: bold;
+}
+.window-content a:hover {
+    text-decoration: underline;
+}
+.window-content blockquote {
+    margin: 10px 0;
+    padding-left: 15px;
+    border-left: 4px solid #00695c;
+}
+.window-content ul {
+    margin-left: 20px;
+}
+</style>
 </head>
 <body>
-    <h1>Untitled Tree Game</h1>
 
-    <div>
-        <button onclick="window.open('https://www.roblox.com/games/120236804424591/Untitled-Tree-Game', '_blank')">Play on Roblox</button>
-        <button onclick="window.open('https://discord.com/invite/Fq7cKHscHA', '_blank')">Join Discord</button>
-    </div>
+<h1>Untitled Tree Game</h1>
 
-    <div id="rules">
-        <h2>Rules</h2>
-        <p>
-            1. Be respectful to other players.<br>
-            2. Do not exploit bugs or cheat.<br>
-            3. No inappropriate language or content.<br>
-            4. Follow Roblox's Terms of Service.<br>
-            5. Have fun and enjoy the game!
-        </p>
+<div class="buttons">
+    <button onclick="showWindow('discord')">Discord</button>
+    <button onclick="showWindow('game')">Game</button>
+    <button onclick="showWindow('rules')">Rules & Info</button>
+</div>
+
+<div class="window" id="contentWindow">
+    <div class="window-content" id="windowContent">
+        <p>Welcome.</p>
     </div>
+</div>
+
+<script>
+const contentData = {
+    discord: `
+        <h2>DISCORD</h2>
+        <blockquote>
+            <p><a href="https://discord.com/invite/Fq7cKHscHA" target="_blank">https://discord.com/invite/Fq7cKHscHA</a></p>
+            <p><strong>Owner:</strong> @laszi_</p>
+        </blockquote>
+        <h3>Rules</h3>
+        <ul>
+            <li>No NSFW</li>
+            <li>Don't curse too much</li>
+        </ul>
+    `,
+    game: `
+        <h2>GAME</h2>
+        <blockquote>
+            <p><a href="https://www.roblox.com/games/120236804424591/Untitled-Tree-Game" target="_blank">https://www.roblox.com/games/120236804424591/Untitled-Tree-Game</a></p>
+            <p><strong>Owner:</strong> <a href="https://www.roblox.com/users/9751195245/profile" target="_blank">laszi_top</a></p>
+        </blockquote>
+        <h3>Gamepasses (Rejoin needed to activate)</h3>
+        <ul>
+            <li><a href="https://www.roblox.com/game-pass/1727800403/run" target="_blank">Run</a> - Grants permission to run, hold <strong>CTRL</strong> to run</li>
+            <li><a href="https://www.roblox.com/game-pass/1729246350/shovel" target="_blank">Shovel</a> - Grants votekick & team commands permissions, also a weapon: <code>!shovel</code> (2 min cooldown)</li>
+        </ul>
+        <h3>Votekicking</h3>
+        <ul>
+            <li>Votekick only if someone is building NSFW content, or cursing</li>
+            <li>Stealing is not a reason</li>
+            <li>Start a votekick: <code>!vk player</code></li>
+            <li>Vote: <code>!vkno</code> / <code>!vkyes</code></li>
+            <li>Server cooldown: 5 minutes</li>
+        </ul>
+        <h3>Building</h3>
+        <ul>
+            <li>Do not build NSFW content</li>
+            <li>Painting: <code>!paint</code>, select color and click blocks (2 min cooldown)</li>
+            <li>Blocks might dupe into each other, just mine both blocks</li>
+            <li>Building is meant to be upwards, placing on the sides can be tricky</li>
+        </ul>
+        <h3>Teams</h3>
+        <ul>
+            <li><code>!teamjoin name</code> - Join a team</li>
+            <li><code>!teamleave name</code> - Leave a team</li>
+            <li>With gamepass: <code>!teamcreate name</code>, <code>!teamdelete name</code>, <code>!teamname name</code>, <code>!teamcolor color</code> (Only team owner)</li>
+        </ul>
+        <h3>Rare Trees</h3>
+        <ul>
+            <li>Rare trees have a 1/1000 chance to spawn</li>
+            <li>Rare trees give rare block, which can be painted; rare blocks are infinite (No block given when mined)</li>
+        </ul>
+    `,
+    rules: `
+        <h2>Other</h2>
+        <p>Awesome website right?</p>
+    `
+};
+
+function showWindow(type) {
+    const winDiv = document.getElementById('contentWindow');
+    const winContent = document.getElementById('windowContent');
+    const newContent = contentData[type] || '<p>Content not found.</p>';
+
+    // Hidden clone to measure size
+    const clone = winDiv.cloneNode(true);
+    clone.style.visibility = 'hidden';
+    clone.style.position = 'absolute';
+    clone.style.width = 'auto';
+    clone.style.height = 'auto';
+    clone.querySelector('#windowContent').innerHTML = newContent;
+    document.body.appendChild(clone);
+
+    const newWidth = clone.offsetWidth + 'px';
+    const newHeight = clone.offsetHeight + 'px';
+    document.body.removeChild(clone);
+
+    // Animate to new size
+    winDiv.style.width = newWidth;
+    winDiv.style.height = newHeight;
+
+    // Update content after slight delay
+    setTimeout(() => {
+        winContent.innerHTML = newContent;
+    }, 50);
+}
+</script>
+
 </body>
 </html>
