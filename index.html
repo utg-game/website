@@ -72,6 +72,20 @@ h1 {
     max-width: 100%;
     border-radius: 10px;
     margin-top: 10px;
+    display: none; /* hidden by default */
+}
+.toggle-btn {
+    padding: 2px 6px;
+    font-size: 12px;
+    margin-left: 5px;
+    cursor: pointer;
+    border: 1px solid #00695c;
+    background-color: rgba(0,0,0,0.05);
+    color: #00695c;
+    border-radius: 4px;
+}
+.toggle-btn:hover {
+    background-color: rgba(0,0,0,0.1);
 }
 </style>
 </head>
@@ -135,10 +149,11 @@ const contentData = {
         <ul>
             <li><code>!teamjoin name</code> - Join a team</li>
             <li><code>!teamleave name</code> - Leave a team</li>
-            <li>With gamepass: <code>!teamcreate name</code>, <code>!teamdelete name</code>, <code>!teamname name</code>, <code>!teamcolor color</code> (Only team owner)</li>
+            <li>With gamepass: <code>!teamcreate name</code>, <code>!teamdelete name</code>, <code>!teamname name</code>, <code>!teamcolor color</code> 
+                <button class="toggle-btn" onclick="toggleColors()">Show/Hide Colors</button>
+            </li>
         </ul>
-        <p><strong>Colors:</strong></p>
-        <img src="https://cdn.discordapp.com/attachments/1429133321773777022/1476630148228055090/teamcolors.png?ex=69a912bd&is=69a7c13d&hm=a5d71bdbc37894fa13db8dc71f591864d5411e93106b882916b076960b78f78d&" alt="Team Colors">
+        <img id="teamColors" src="https://cdn.discordapp.com/attachments/1429133321773777022/1476630148228055090/teamcolors.png?ex=69a912bd&is=69a7c13d&hm=a5d71bdbc37894fa13db8dc71f591864d5411e93106b882916b076960b78f78d&" alt="Team Colors">
         <h3>Rare Trees</h3>
         <ul>
             <li>Rare trees have a 1/1000 chance to spawn</li>
@@ -156,7 +171,6 @@ function showWindow(type) {
     const winContent = document.getElementById('windowContent');
     const newContent = contentData[type] || '<p>Content not found.</p>';
 
-    // Hidden clone to measure size
     const clone = winDiv.cloneNode(true);
     clone.style.visibility = 'hidden';
     clone.style.position = 'absolute';
@@ -169,13 +183,23 @@ function showWindow(type) {
     const newHeight = clone.offsetHeight + 'px';
     document.body.removeChild(clone);
 
-    // Animate to new size
     winDiv.style.width = newWidth;
     winDiv.style.height = newHeight;
 
-    // Update content after slight delay
     setTimeout(() => {
         winContent.innerHTML = newContent;
+    }, 50);
+}
+
+function toggleColors() {
+    const img = document.getElementById('teamColors');
+    img.style.display = (img.style.display === 'none' || img.style.display === '') ? 'block' : 'none';
+
+    // Recalculate window size
+    const winDiv = document.getElementById('contentWindow');
+    setTimeout(() => {
+        winDiv.style.width = winDiv.scrollWidth + 'px';
+        winDiv.style.height = winDiv.scrollHeight + 'px';
     }, 50);
 }
 </script>
