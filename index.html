@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled Tree Game</title>
 <style>
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -16,11 +18,13 @@ body {
     color: #fff;
     min-height: 100vh;
 }
+
 h1 {
     margin-top: 40px;
     font-size: 3em;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
 }
+
 .buttons {
     margin: 20px;
 }
@@ -33,11 +37,19 @@ h1 {
     cursor: pointer;
     background-color: rgba(0,0,0,0.6);
     color: #fff;
-    transition: background 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    display: inline-flex;
+    align-items: center;
+}
+.buttons button i {
+    margin-right: 8px;
 }
 .buttons button:hover {
     background-color: rgba(0,0,0,0.8);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 200, 150, 0.7);
 }
+
 .window {
     background: rgba(255, 255, 255, 0.95);
     color: #333;
@@ -72,7 +84,7 @@ h1 {
     max-width: 100%;
     border-radius: 10px;
     margin-top: 10px;
-    display: none; /* hidden by default */
+    display: none;
 }
 .toggle-btn {
     padding: 2px 6px;
@@ -94,9 +106,9 @@ h1 {
 <h1>Untitled Tree Game</h1>
 
 <div class="buttons">
-    <button onclick="showWindow('discord')">Discord</button>
-    <button onclick="showWindow('game')">Game</button>
-    <button onclick="showWindow('rules')">Rules & Info</button>
+    <button onclick="showWindow('discord')"><i class="fab fa-discord"></i>Discord</button>
+    <button onclick="showWindow('game')"><i class="fas fa-gamepad"></i>Game</button>
+    <button onclick="showWindow('rules')"><i class="fas fa-book"></i>Rules & Info</button>
 </div>
 
 <div class="window" id="contentWindow">
@@ -149,9 +161,13 @@ const contentData = {
         <ul>
             <li><code>!teamjoin name</code> - Join a team</li>
             <li><code>!teamleave name</code> - Leave a team</li>
-            <li>With gamepass: <code>!teamcreate name</code>, <code>!teamdelete name</code>, <code>!teamname name</code>, <code>!teamcolor color</code> 
-                <button class="toggle-btn" onclick="toggleColors()">Show/Hide Colors</button>
-            </li>
+            <li>Gamepass commands:</li>
+            <ul>
+                <li><code>!teamcreate name</code> - Create a team (Only team owner)</li>
+                <li><code>!teamdelete name</code> - Delete a team (Only team owner)</li>
+                <li><code>!teamname name</code> - Rename the team (Only team owner)</li>
+                <li><code>!teamcolor color</code> - Set team color (Only team owner) <button class="toggle-btn" onclick="toggleColors()">Show/Hide Colors</button></li>
+            </ul>
         </ul>
         <img id="teamColors" src="https://cdn.discordapp.com/attachments/1429133321773777022/1476630148228055090/teamcolors.png?ex=69a912bd&is=69a7c13d&hm=a5d71bdbc37894fa13db8dc71f591864d5411e93106b882916b076960b78f78d&" alt="Team Colors">
         <h3>Rare Trees</h3>
@@ -193,15 +209,11 @@ function showWindow(type) {
 
 function toggleColors() {
     const img = document.getElementById('teamColors');
-    // Toggle visibility
-    const isHidden = img.style.display === 'none' || img.style.display === '';
-    img.style.display = isHidden ? 'block' : 'none';
+    img.style.display = (img.style.display === 'none' || img.style.display === '') ? 'block' : 'none';
 
-    // Recalculate window size based on actual content
     const winDiv = document.getElementById('contentWindow');
     const winContent = document.getElementById('windowContent');
 
-    // Create a hidden clone to measure correct size
     const clone = winDiv.cloneNode(true);
     clone.style.visibility = 'hidden';
     clone.style.position = 'absolute';
@@ -210,10 +222,8 @@ function toggleColors() {
     clone.querySelector('#windowContent').innerHTML = winContent.innerHTML;
     document.body.appendChild(clone);
 
-    // Animate window to new size
     winDiv.style.width = clone.offsetWidth + 'px';
     winDiv.style.height = clone.offsetHeight + 'px';
-
     document.body.removeChild(clone);
 }
 </script>
