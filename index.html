@@ -113,6 +113,7 @@ h1 {
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     transition: transform 0.3s;
+    display: block;
 }
 .journal-images img:hover {
     transform: rotate(0deg) scale(1.05);
@@ -188,19 +189,16 @@ const contentData = {
             </ul>
         </ul>
         <img id="teamColors" src="https://cdn.discordapp.com/attachments/1429133321773777022/1476630148228055090/teamcolors.png?ex=69a912bd&is=69a7c13d&hm=a5d71bdbc37894fa13db8dc71f591864d5411e93106b882916b076960b78f78d&" alt="Team Colors">
-        
-        <!-- Journal images at the bottom -->
-        <div class="journal-images">
-            <img src="https://tr.rbxcdn.com/180DAY-706aaab8bd15d268b10572632de1609e/768/432/Image/Webp/noFilter" alt="Journal 1" style="transform: rotate(-5deg);">
-            <img src="https://tr.rbxcdn.com/180DAY-2764c31efb257bbba8e277d0886d2536/768/432/Image/Webp/noFilter" alt="Journal 2" style="transform: rotate(3deg);">
-            <img src="https://tr.rbxcdn.com/180DAY-a2e5cab63f5c306b3218d72d8f882704/768/432/Image/Webp/noFilter" alt="Journal 3" style="transform: rotate(-2deg);">
-        </div>
-
         <h3>Rare Trees</h3>
         <ul>
             <li>Rare trees have a 1/1000 chance to spawn</li>
             <li>Rare trees give rare block, which can be painted; rare blocks are infinite (No block given when mined)</li>
         </ul>
+        <div class="journal-images">
+            <img src="https://tr.rbxcdn.com/180DAY-706aaab8bd15d268b10572632de1609e/768/432/Image/Webp/noFilter" alt="Journal 1" style="transform: rotate(-5deg); display:block;">
+            <img src="https://tr.rbxcdn.com/180DAY-2764c31efb257bbba8e277d0886d2536/768/432/Image/Webp/noFilter" alt="Journal 2" style="transform: rotate(3deg); display:block;">
+            <img src="https://tr.rbxcdn.com/180DAY-a2e5cab63f5c306b3218d72d8f882704/768/432/Image/Webp/noFilter" alt="Journal 3" style="transform: rotate(-2deg); display:block;">
+        </div>
     `,
     rules: `
         <h2>Other</h2>
