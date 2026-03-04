@@ -24,9 +24,10 @@ h1 {
     font-size: 3em;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
 }
-
 .buttons {
-    margin: 20px;
+    position: sticky;
+    top: 15px; /* distance from top when sticking */
+    z-index: 999; /* stays above content but below modal */
 }
 .buttons button {
     padding: 12px 20px;
@@ -51,8 +52,8 @@ h1 {
 }
 
 .window {
-    background: rgba(255, 255, 255, 0.95);
-    color: #333;
+    background: rgba(0, 0, 0, 0.7); /* black with transparency */
+    color: #fff;
     border-radius: 12px;
     padding: 30px;
     margin-top: 20px;
@@ -213,19 +214,19 @@ const contentData = {
         <ul>
             <li><code>!teamjoin name</code> - Join a team</li>
             <li><code>!teamleave name</code> - Leave a team</li>
-            <li>Gamepass commands:</li>
-            <ul>
-                <li><code>!teamcreate name</code> - Create a team (Only team owner)</li>
-                <li><code>!teamdelete name</code> - Delete a team (Only team owner)</li>
-                <li><code>!teamname name</code> - Rename the team (Only team owner)</li>
-                <li><code>!teamcolor color</code> - Set team color (Only team owner) <button class="toggle-btn" onclick="openModal()">View Colors</button></li>
-            </ul>
+            <br>
+            <li>Team owner:</li>
+            <li><code>!teamcreate name</code> - Create a team</li>
+            <li><code>!teamdelete name</code> - Delete a team</li>
+            <li><code>!teamname name</code> - Rename the team</li>
+            <li><code>!teamcolor color</code> - Set team color<button class="toggle-btn" onclick="openModal()">View Colors</button></li>
         </ul>
         <h3>Rare Trees</h3>
         <ul>
             <li>Rare trees have a 1/1000 chance to spawn</li>
             <li>Rare trees give rare block, which can be painted; rare blocks are infinite (No block given when mined)</li>
         </ul>
+        <hr>
         <div class="journal-images">
             <img src="https://tr.rbxcdn.com/180DAY-706aaab8bd15d268b10572632de1609e/768/432/Image/Webp/noFilter" alt="Journal 1" class="rotate-neg5">
             <img src="https://tr.rbxcdn.com/180DAY-2764c31efb257bbba8e277d0886d2536/768/432/Image/Webp/noFilter" alt="Journal 2" class="rotate-5">
