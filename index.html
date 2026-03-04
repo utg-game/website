@@ -99,11 +99,11 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
-    gap: 20px;
+    margin-top: 100px; /* more space from the text above */
+    gap: 80px; /* more space between images */
 }
 .journal-images img {
-    width: 200px;
+    width: 700px; /* bigger size */
     height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
@@ -249,40 +249,67 @@ function showWindow(type) {
     const winContent = document.getElementById('windowContent');
     const newContent = contentData[type] || '<p>Content not found.</p>';
 
-    winContent.innerHTML = newContent;
+    // Step 1: measure current size before changing content
+    if (!winDiv.style.width) winDiv.style.width = winDiv.offsetWidth + 'px';
+    if (!winDiv.style.height) winDiv.style.height = winDiv.offsetHeight + 'px';
 
-    const imgs = winContent.querySelectorAll('img');
-    let loadedCount = 0;
-    if (imgs.length === 0) {
-        resizeWindow();
-    } else {
+    // Step 2: put new content temporarily into a clone to measure new size
+    const clone = winDiv.cloneNode(true);
+    clone.style.visibility = 'hidden';
+    clone.style.position = 'absolute';
+    clone.style.width = 'auto';
+    clone.style.height = 'auto';
+    clone.querySelector('#windowContent').innerHTML = newContent;
+    document.body.appendChild(clone);
+
+    const newWidth = clone.offsetWidth + 'px';
+    const newHeight = clone.offsetHeight + 'px';
+    document.body.removeChild(clone);
+
+    // Step 3: animate to new size
+    setTimeout(() => {
+        winDiv.style.width = newWidth;
+        winDiv.style.height = newHeight;
+    }, 20);
+
+    // Step 4: set the new content AFTER a tiny delay so animation can trigger
+    setTimeout(() => {
+        winContent.innerHTML = newContent;
+
+        // Step 5: handle images inside the new content to resize window if needed
+        const imgs = winContent.querySelectorAll('img');
+        let loadedCount = 0;
+        if (imgs.length === 0) return;
+
         imgs.forEach(img => {
             if (img.complete) {
                 loadedCount++;
-                if (loadedCount === imgs.length) resizeWindow();
+                if (loadedCount === imgs.length) finalizeResize();
             } else {
                 img.onload = img.onerror = () => {
                     loadedCount++;
-                    if (loadedCount === imgs.length) resizeWindow();
+                    if (loadedCount === imgs.length) finalizeResize();
                 };
             }
         });
-    }
 
-    function resizeWindow() {
-        const clone = winDiv.cloneNode(true);
-        clone.style.visibility = 'hidden';
-        clone.style.position = 'absolute';
-        clone.style.width = 'auto';
-        clone.style.height = 'auto';
-        document.body.appendChild(clone);
-        const newWidth = clone.offsetWidth + 'px';
-        const newHeight = clone.offsetHeight + 'px';
-        document.body.removeChild(clone);
+        function finalizeResize() {
+            // re-measure with images loaded
+            const clone2 = winDiv.cloneNode(true);
+            clone2.style.visibility = 'hidden';
+            clone2.style.position = 'absolute';
+            clone2.style.width = 'auto';
+            clone2.style.height = 'auto';
+            document.body.appendChild(clone2);
 
-        winDiv.style.width = newWidth;
-        winDiv.style.height = newHeight;
-    }
+            const finalWidth = clone2.offsetWidth + 'px';
+            const finalHeight = clone2.offsetHeight + 'px';
+            document.body.removeChild(clone2);
+
+            winDiv.style.width = finalWidth;
+            winDiv.style.height = finalHeight;
+        }
+    }, 50);
 }
 
 function openModal() {
