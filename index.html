@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" href="utg_logo.png" type="image/png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untitled Tree Game</title>
@@ -25,6 +24,87 @@ h1 {
     font-size: 3em;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
 }
+
+.game-widget{
+    position:absolute;
+    right:20px;
+    top:20px;
+}
+
+.roblox-game-card{
+    width:300px;
+    background:#1f2024;
+    border-radius:12px;
+    overflow:hidden;
+    font-family:Arial;
+    color:white;
+}
+
+.game-thumb{
+    width:100%;
+    height:170px;
+    object-fit:cover;
+}
+
+.game-content{
+    padding:14px;
+}
+
+.game-content h2{
+    margin:0;
+    font-size:18px;
+}
+
+.creator{
+    color:#b8b8b8;
+    font-size:14px;
+    margin-top:4px;
+}
+
+.play-button{
+    display:block;
+    margin-top:12px;
+    text-align:center;
+    background:#3b5cff;
+    padding:10px;
+    border-radius:8px;
+    color:#fff;
+    text-decoration:none;
+    font-weight:bold;
+    text-decoration: none;
+}
+
+.play-button:link,
+.play-button:visited {
+    text-decoration: none;
+    color: #fff;
+}
+
+.play-button:hover,
+.play-button:active {
+    text-decoration: none;
+    color: #fff;
+}
+
+.author-line p {
+    margin: 0;
+    line-height: 1;
+    color: #c0c0c0; /* grayish */
+    font-weight: normal;
+}
+
+.author-line a.creator {
+    color: #ffffff; /* full white */
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.game-content .author-line {
+    display: flex;
+    align-items: center;
+    gap: 4px; /* space between "By" and link */
+}
+
 .buttons {
     position: sticky;
     top: 15px; /* distance from top when sticking */
@@ -187,16 +267,23 @@ h1 {
 <script>
 const contentData = {
     game: `
+
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start;">
+
+    <!-- Text Column -->
+    <div style="flex: 1; min-width: 200px;">
         <blockquote>
-            <p><a href="https://www.roblox.com/games/120236804424591/Untitled-Tree-Game" target="_blank">https://www.roblox.com/games/120236804424591/Untitled-Tree-Game</a></p>
+            <p><a href="https://www.roblox.com/games/120236804424591/Untitled-Tree-Game" target="_blank">
+            https://www.roblox.com/games/120236804424591/Untitled-Tree-Game</a></p>
             <p><strong>Owner:</strong> <a href="https://www.roblox.com/users/9751195245/profile" target="_blank">laszi_top</a></p>
         </blockquote>
+
         <h3>Gamepasses (Rejoin needed to activate)</h3>
         <ul>
-            <li><a href="https://www.roblox.com/game-pass/1727800403/run" target="_blank">Run</a> - Grants permission to run, hold <strong>CTRL</strong> to run</li>
-            <li><a href="https://www.roblox.com/game-pass/1729246350/shovel" target="_blank">Shovel</a> - Grants votekick & team commands permissions, also a weapon: <code>!shovel</code> (2 min cooldown)</li>
+            <li><a href="https://www.roblox.com/game-pass/1727800403/run" target="_blank">Run</a></li>
+            <li><a href="https://www.roblox.com/game-pass/1729246350/shovel" target="_blank">Shovel</a></li>
         </ul>
-        <h3>Votekicking</h3>
+                <h3>Votekicking</h3>
         <ul>
             <li>Votekick only if someone is building NSFW content, or cursing</li>
             <li>Stealing is not a reason</li>
@@ -204,6 +291,32 @@ const contentData = {
             <li>Vote: <code>!vkno</code> / <code>!vkyes</code></li>
             <li>Server cooldown: 5 minutes</li>
         </ul>
+    </div>
+    
+
+    <!-- Roblox Card -->
+    <div style="flex-shrink:0;">
+        <div class="roblox-game-card">
+            <img class="game-thumb" src="https://tr.rbxcdn.com/180DAY-2764c31efb257bbba8e277d0886d2536/768/432/Image/Webp/noFilter">
+
+            <div class="game-content">
+    <h2>Untitled Tree Game [Beta]</h2>
+    <div class="author-line">
+        <p>By</p>
+        <a class="creator" href="https://www.roblox.com/users/9751195245/profile" target="_blank">@laszi_top</a>
+    </div>
+
+    <a class="play-button"
+       href="https://www.roblox.com/games/120236804424591/Untitled-Tree-Game"
+       target="_blank">
+       ▶
+    </a>
+</div>
+        </div>
+    </div>
+
+</div>
+
         <h3>Building</h3>
         <ul>
             <li>Do not build NSFW content</li>
@@ -229,9 +342,9 @@ const contentData = {
         </ul>
         <hr>
         <div class="journal-images">
-            <img src="img1.png" alt="Journal 1" class="rotate-neg5">
-            <img src="img2.png" alt="Journal 2" class="rotate-5">
-            <img src="img3.png" alt="Journal 3" class="rotate-neg5">
+            <img src="https://tr.rbxcdn.com/180DAY-706aaab8bd15d268b10572632de1609e/768/432/Image/Webp/noFilter" alt="Journal 1" class="rotate-neg5">
+            <img src="https://tr.rbxcdn.com/180DAY-2764c31efb257bbba8e277d0886d2536/768/432/Image/Webp/noFilter" alt="Journal 2" class="rotate-5">
+            <img src="https://tr.rbxcdn.com/180DAY-a2e5cab63f5c306b3218d72d8f882704/768/432/Image/Webp/noFilter" alt="Journal 3" class="rotate-neg5">
         </div>
     `,
     rules: `<p>Awesome website right?</p>`
